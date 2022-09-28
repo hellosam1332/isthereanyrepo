@@ -9,6 +9,8 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
   ],
   overrides: [],
   parser: '@typescript-eslint/parser',
@@ -20,5 +22,7 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'prettier/prettier': ['error'],
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error',
   },
 };
