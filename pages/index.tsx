@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
-import HomeComponent from '../src/component/home/Home';
+import HomeContainer from '../src/component/home/HomeContainer';
 
 const Home: NextPage = () => {
   return (
@@ -10,7 +10,7 @@ const Home: NextPage = () => {
         <title>IsThereAnyRepo</title>
         <meta name="description" content="github repo search page" />
       </Head>
-      <HomeComponent />
+      <HomeContainer />
     </>
   );
 };
