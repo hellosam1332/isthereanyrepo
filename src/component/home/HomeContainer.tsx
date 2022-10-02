@@ -1,5 +1,9 @@
-import SearchForm from '../search/SearchForm';
 import { useState } from 'react';
+import styled from '@emotion/styled';
+
+import SearchForm from '../search/SearchForm';
+import RepositoryList from '../repository/RepositoryList';
+import { repositorySearchResultsMock } from '../../__mock__/repository.mock';
 
 export default function HomeContainer() {
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -9,12 +13,18 @@ export default function HomeContainer() {
   };
 
   return (
-    <div>
+    <Container>
       <SearchForm
         keyword={searchKeyword}
         onChangeKeyword={setSearchKeyword}
         onSubmit={submitSearchKeyword}
       />
-    </div>
+      <RepositoryList listItems={repositorySearchResultsMock} />
+    </Container>
   );
 }
+
+const Container = styled.div`
+  width: 1050px;
+  margin: 0 auto;
+`;
