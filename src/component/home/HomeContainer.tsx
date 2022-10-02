@@ -12,6 +12,10 @@ export default function HomeContainer() {
     //TODO 검색 기능 구현
   };
 
+  const showMore = () => {
+    //TODO 더 보기 기능 구현
+  };
+
   return (
     <Container>
       <SearchForm
@@ -19,7 +23,7 @@ export default function HomeContainer() {
         onChangeKeyword={setSearchKeyword}
         onSubmit={submitSearchKeyword}
       />
-      <RepositoryList listItems={repositorySearchResultsMock} />
+      <RepositoryList listItems={repositorySearchResultsMock} onClickShowMoreButton={showMore} />
     </Container>
   );
 }
