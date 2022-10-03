@@ -7,8 +7,8 @@ import RepositoryList from '../repository/RepositoryList';
 export default function HomeContainer() {
   const [searchKeyword, setSearchKeyword] = useState('');
 
-  const submitSearchKeyword = () => {
-    //TODO 검색 기능 구현
+  const submitSearchKeyword = (keyword: string) => {
+    setSearchKeyword(keyword);
   };
 
   const showMore = () => {
@@ -17,13 +17,11 @@ export default function HomeContainer() {
 
   return (
     <Container>
-      <SearchForm
-        keyword={searchKeyword}
-        onChangeKeyword={setSearchKeyword}
-        onSubmit={submitSearchKeyword}
-      />
+      <SearchForm onSubmit={submitSearchKeyword} />
       <Suspense fallback={<h2>loading repositories...</h2>}>
-        <RepositoryList searchKeyword={searchKeyword} onClickShowMoreButton={showMore} />
+        {searchKeyword && (
+          <RepositoryList searchKeyword={searchKeyword} onClickShowMoreButton={showMore} />
+        )}
       </Suspense>
     </Container>
   );

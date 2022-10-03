@@ -1,37 +1,31 @@
 import styled from '@emotion/styled';
 import InputKeyword from './InputKeyword';
-import { ChangeEvent, FormEvent, useCallback } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 
 interface Props {
-  keyword: string;
-
-  onChangeKeyword(value: string): void;
-
-  onSubmit(): void;
+  onSubmit(keyword: string): void;
 }
 
-export default function SearchForm({ keyword, onChangeKeyword, onSubmit }: Props) {
+export default function SearchForm({ onSubmit }: Props) {
+  const [input, setInput] = useState('');
+
   const handleSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      onSubmit();
+      onSubmit(input);
     },
-    [onSubmit],
+    [input, onSubmit],
   );
 
-  const handleChangeKeyword = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      onChangeKeyword(value);
-    },
-    [onChangeKeyword],
-  );
+  const handleChangeKeyword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value.trim());
+  }, []);
 
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
         <InputKeyword
-          value={keyword}
+          value={input}
           onChange={handleChangeKeyword}
           placeholder="검색어를 입력해주세요"
         />
