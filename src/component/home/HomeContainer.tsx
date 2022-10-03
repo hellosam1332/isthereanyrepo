@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import styled from '@emotion/styled';
 
 import SearchForm from '../search/SearchForm';
 import RepositoryList from '../repository/RepositoryList';
-import { repositorySearchResultsMock } from '../../__mock__/repository.mock';
 
 export default function HomeContainer() {
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -23,7 +22,9 @@ export default function HomeContainer() {
         onChangeKeyword={setSearchKeyword}
         onSubmit={submitSearchKeyword}
       />
-      <RepositoryList listItems={repositorySearchResultsMock} onClickShowMoreButton={showMore} />
+      <Suspense fallback={<h2>loading repositories...</h2>}>
+        <RepositoryList searchKeyword={searchKeyword} onClickShowMoreButton={showMore} />
+      </Suspense>
     </Container>
   );
 }

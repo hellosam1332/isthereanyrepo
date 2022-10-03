@@ -1,6 +1,8 @@
 export interface Repository {
-  id: number;
-  title: string;
-  content: string;
-  starCount: number;
+  id: string;
+  name: string;
+  description: string;
+  stargazers: {
+    totalCount: number;
+  };
 }

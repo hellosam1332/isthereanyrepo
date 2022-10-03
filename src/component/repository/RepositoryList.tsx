@@ -1,19 +1,26 @@
 import styled from '@emotion/styled';
 import RepositoryListItem from './RepositoryListItem';
-import { Repository } from '../../interface/repository.interface';
+import useRepositoryList from './useRepositoryList';
 
 interface Props {
-  listItems: Repository[];
+  searchKeyword: string;
 
   onClickShowMoreButton(): void;
 }
 
-export default function RepositoryList({ listItems, onClickShowMoreButton }: Props) {
+export default function RepositoryList({ searchKeyword, onClickShowMoreButton }: Props) {
+  const items = useRepositoryList(searchKeyword);
+
   return (
     <>
       <Container>
-        {listItems.map(({ id, starCount, content, title }) => (
-          <RepositoryListItem key={id} title={title} content={content} starCount={starCount} />
+        {items.map(({ id, stargazers, name, description }) => (
+          <RepositoryListItem
+            key={id}
+            title={name}
+            content={description}
+            starCount={stargazers.totalCount}
+          />
         ))}
       </Container>
       <ShowMoreButton type="submit" onClick={onClickShowMoreButton}>
