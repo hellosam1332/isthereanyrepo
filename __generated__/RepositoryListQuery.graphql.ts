@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4f6aa962b1e80bba906a26c0b1f13c21>>
+ * @generated SignedSource<<e2da7a54b20a3274acfa497493dce4df>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -132,6 +132,31 @@ return {
                         "kind": "ScalarField",
                         "name": "description",
                         "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "viewerHasStarred",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "StargazerConnection",
+                        "kind": "LinkedField",
+                        "name": "stargazers",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "totalCount",
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
                       }
                     ],
                     "type": "Repository",
@@ -200,12 +225,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1d16003f312c6bc8aa6eb451be2c5fc9",
+    "cacheID": "5f89f40d9544b1b86d08dff6f1d4a179",
     "id": null,
     "metadata": {},
     "name": "RepositoryListQuery",
     "operationKind": "query",
-    "text": "query RepositoryListQuery(\n  $query: String!\n) {\n  ...useRepositoryListFragment_1Qr5xf\n}\n\nfragment RepositoryListItem on Repository {\n  name\n  description\n}\n\nfragment useRepositoryListFragment_1Qr5xf on Query {\n  search(query: $query, first: 5, type: REPOSITORY) {\n    repositoryCount\n    edges {\n      cursor\n      node {\n        __typename\n        ...RepositoryListItem\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query RepositoryListQuery(\n  $query: String!\n) {\n  ...useRepositoryListFragment_1Qr5xf\n}\n\nfragment RepositoryListItem on Repository {\n  name\n  description\n  ...RepositoryStar\n}\n\nfragment RepositoryStar on Repository {\n  viewerHasStarred\n  stargazers {\n    totalCount\n  }\n}\n\nfragment useRepositoryListFragment_1Qr5xf on Query {\n  search(query: $query, first: 5, type: REPOSITORY) {\n    repositoryCount\n    edges {\n      cursor\n      node {\n        __typename\n        ...RepositoryListItem\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
