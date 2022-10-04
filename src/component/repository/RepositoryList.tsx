@@ -3,6 +3,7 @@ import RepositoryListItem from './RepositoryListItem';
 import useRepositoryList from './useRepositoryList';
 import { graphql, useLazyLoadQuery } from 'react-relay';
 import { RepositoryListQuery } from '../../../__generated__/RepositoryListQuery.graphql';
+import { RepositoryListItem$key } from '../../../__generated__/RepositoryListItem.graphql';
 
 const query = graphql`
   query RepositoryListQuery($query: String!) {
@@ -19,18 +20,13 @@ export default function RepositoryList({ searchKeyword }: Props) {
     query: searchKeyword,
   });
 
-  const { items, loadNext, hasNext } = useRepositoryList(data);
+  const { edges, loadNext, hasNext } = useRepositoryList(data);
 
   return (
     <>
       <Container>
-        {items.map(({ id, stargazers, name, description }) => (
-          <RepositoryListItem
-            key={id}
-            title={name}
-            content={description}
-            starCount={stargazers.totalCount}
-          />
+        {edges.map((edge) => (
+          <RepositoryListItem key={edge.cursor} fragmentRef={edge.node as RepositoryListItem$key} />
         ))}
       </Container>
       <ShowMoreButton type="submit" disabled={!hasNext} onClick={() => loadNext(5)}>
