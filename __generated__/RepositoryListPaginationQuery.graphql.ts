@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9093ff23960063a953cf12a71e6f49e5>>
+ * @generated SignedSource<<8948e94297726e5da5a9f1190ec6e098>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RepositoryListPaginationQuery$variables = {
-  count?: number | null;
+  count: number;
   cursor?: string | null;
   query: string;
 };
@@ -26,7 +26,7 @@ export type RepositoryListPaginationQuery = {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "defaultValue": 5,
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "count"
   },
@@ -252,16 +252,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c6ba212947c89c115c52fb1b6d908386",
+    "cacheID": "2178384df2afce4ec5110c3f0ed25f7c",
     "id": null,
     "metadata": {},
     "name": "RepositoryListPaginationQuery",
     "operationKind": "query",
-    "text": "query RepositoryListPaginationQuery(\n  $count: Int = 5\n  $cursor: String\n  $query: String!\n) {\n  ...useRepositoryListFragment_1jWD3d\n}\n\nfragment RepositoryListItem on Repository {\n  name\n  description\n  ...RepositoryStar\n}\n\nfragment RepositoryStar on Repository {\n  viewerHasStarred\n  stargazers {\n    totalCount\n  }\n}\n\nfragment useRepositoryListFragment_1jWD3d on Query {\n  search(query: $query, first: $count, after: $cursor, type: REPOSITORY) {\n    repositoryCount\n    edges {\n      cursor\n      node {\n        __typename\n        ...RepositoryListItem\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query RepositoryListPaginationQuery(\n  $count: Int!\n  $cursor: String\n  $query: String!\n) {\n  ...useRepositoryListFragment_1jWD3d\n}\n\nfragment RepositoryListItem on Repository {\n  name\n  description\n  ...RepositoryStar\n}\n\nfragment RepositoryStar on Repository {\n  viewerHasStarred\n  stargazers {\n    totalCount\n  }\n}\n\nfragment useRepositoryListFragment_1jWD3d on Query {\n  search(query: $query, first: $count, after: $cursor, type: REPOSITORY) {\n    repositoryCount\n    edges {\n      cursor\n      node {\n        __typename\n        ...RepositoryListItem\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9a634ef948f6401beccc4426acef090d";
+(node as any).hash = "3c9a765e7fd43e7d830bdcbd19a73574";
 
 export default node;

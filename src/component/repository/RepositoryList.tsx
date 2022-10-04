@@ -4,10 +4,11 @@ import useRepositoryList from './useRepositoryList';
 import { graphql, useLazyLoadQuery } from 'react-relay';
 import { RepositoryListQuery } from '../../../__generated__/RepositoryListQuery.graphql';
 import { RepositoryListItem$key } from '../../../__generated__/RepositoryListItem.graphql';
+import { REPOSITORY_LIST_PAGE_SIZE } from '../../../config';
 
 const query = graphql`
-  query RepositoryListQuery($query: String!) {
-    ...useRepositoryListFragment @arguments(query: $query)
+  query RepositoryListQuery($query: String!, $count: Int!) {
+    ...useRepositoryListFragment @arguments(query: $query, count: $count)
   }
 `;
 
@@ -18,6 +19,7 @@ interface Props {
 export default function RepositoryList({ searchKeyword }: Props) {
   const data = useLazyLoadQuery<RepositoryListQuery>(query, {
     query: searchKeyword,
+    count: REPOSITORY_LIST_PAGE_SIZE,
   });
 
   const { edges, loadNext, hasNext } = useRepositoryList(data);
@@ -29,7 +31,11 @@ export default function RepositoryList({ searchKeyword }: Props) {
           <RepositoryListItem key={edge.cursor} fragmentRef={edge.node as RepositoryListItem$key} />
         ))}
       </Container>
-      <ShowMoreButton type="submit" disabled={!hasNext} onClick={() => loadNext(5)}>
+      <ShowMoreButton
+        type="submit"
+        disabled={!hasNext}
+        onClick={() => loadNext(REPOSITORY_LIST_PAGE_SIZE)}
+      >
         더 보기
       </ShowMoreButton>
     </>

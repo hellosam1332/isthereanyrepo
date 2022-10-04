@@ -1,11 +1,11 @@
 import { graphql, usePaginationFragment } from 'react-relay';
 import { useRepositoryListFragment$key } from '../../../__generated__/useRepositoryListFragment.graphql';
 
-const query2 = graphql`
+const query = graphql`
   fragment useRepositoryListFragment on Query
   @argumentDefinitions(
     query: { type: "String!" }
-    count: { type: "Int", defaultValue: 5 }
+    count: { type: "Int!" }
     cursor: { type: "String" }
   )
   @refetchable(queryName: "RepositoryListPaginationQuery") {
@@ -23,7 +23,7 @@ const query2 = graphql`
 `;
 
 export default function useRepositoryList(ref: useRepositoryListFragment$key) {
-  const { data, loadNext, hasNext } = usePaginationFragment(query2, ref);
+  const { data, loadNext, hasNext } = usePaginationFragment(query, ref);
 
   const edges = data.search.edges?.filter(isDefined) || [];
 

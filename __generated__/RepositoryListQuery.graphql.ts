@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e2da7a54b20a3274acfa497493dce4df>>
+ * @generated SignedSource<<06a39492e6b9c23615f58f9ba451f6e4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,7 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RepositoryListQuery$variables = {
+  count: number;
   query: string;
 };
 export type RepositoryListQuery$data = {
@@ -22,25 +23,28 @@ export type RepositoryListQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "query"
-  }
-],
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "count"
+},
 v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "query"
+},
+v2 = {
   "kind": "Variable",
   "name": "query",
   "variableName": "query"
 },
-v2 = [
+v3 = [
   {
-    "kind": "Literal",
+    "kind": "Variable",
     "name": "first",
-    "value": 5
+    "variableName": "count"
   },
-  (v1/*: any*/),
+  (v2/*: any*/),
   {
     "kind": "Literal",
     "name": "type",
@@ -49,14 +53,22 @@ v2 = [
 ];
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "RepositoryListQuery",
     "selections": [
       {
         "args": [
-          (v1/*: any*/)
+          {
+            "kind": "Variable",
+            "name": "count",
+            "variableName": "count"
+          },
+          (v2/*: any*/)
         ],
         "kind": "FragmentSpread",
         "name": "useRepositoryListFragment"
@@ -67,13 +79,16 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v1/*: any*/),
+      (v0/*: any*/)
+    ],
     "kind": "Operation",
     "name": "RepositoryListQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v3/*: any*/),
         "concreteType": "SearchResultItemConnection",
         "kind": "LinkedField",
         "name": "search",
@@ -212,7 +227,7 @@ return {
       },
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v3/*: any*/),
         "filters": [
           "query",
           "type"
@@ -225,16 +240,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5f89f40d9544b1b86d08dff6f1d4a179",
+    "cacheID": "dae0a138e533abd7cda058372cd229a7",
     "id": null,
     "metadata": {},
     "name": "RepositoryListQuery",
     "operationKind": "query",
-    "text": "query RepositoryListQuery(\n  $query: String!\n) {\n  ...useRepositoryListFragment_1Qr5xf\n}\n\nfragment RepositoryListItem on Repository {\n  name\n  description\n  ...RepositoryStar\n}\n\nfragment RepositoryStar on Repository {\n  viewerHasStarred\n  stargazers {\n    totalCount\n  }\n}\n\nfragment useRepositoryListFragment_1Qr5xf on Query {\n  search(query: $query, first: 5, type: REPOSITORY) {\n    repositoryCount\n    edges {\n      cursor\n      node {\n        __typename\n        ...RepositoryListItem\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query RepositoryListQuery(\n  $query: String!\n  $count: Int!\n) {\n  ...useRepositoryListFragment_1bcUq5\n}\n\nfragment RepositoryListItem on Repository {\n  name\n  description\n  ...RepositoryStar\n}\n\nfragment RepositoryStar on Repository {\n  viewerHasStarred\n  stargazers {\n    totalCount\n  }\n}\n\nfragment useRepositoryListFragment_1bcUq5 on Query {\n  search(query: $query, first: $count, type: REPOSITORY) {\n    repositoryCount\n    edges {\n      cursor\n      node {\n        __typename\n        ...RepositoryListItem\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "7d22f31891b6da154c4b1b2ce5d50b2a";
+(node as any).hash = "508fb911123a48382be9e4a3290a5ce6";
 
 export default node;
