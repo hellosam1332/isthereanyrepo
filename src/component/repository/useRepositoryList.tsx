@@ -1,12 +1,20 @@
-import { graphql, useLazyLoadQuery } from 'react-relay';
 import { Repository } from '../../interface/repository.interface';
-import { useRepositoryListQuery } from '../../../__generated__/useRepositoryListQuery.graphql';
+import { graphql, usePaginationFragment } from 'react-relay';
+import { useRepositoryListFragment$key } from '../../../__generated__/useRepositoryListFragment.graphql';
 
-const query = graphql`
-  query useRepositoryListQuery($queryString: String!) {
-    search(query: $queryString, type: REPOSITORY, first: 5) {
+const query2 = graphql`
+  fragment useRepositoryListFragment on Query
+  @argumentDefinitions(
+    query: { type: "String!" }
+    count: { type: "Int", defaultValue: 5 }
+    cursor: { type: "String" }
+  )
+  @refetchable(queryName: "RepositoryListPaginationQuery") {
+    search(query: $query, first: $count, after: $cursor, type: REPOSITORY)
+      @connection(key: "repository_list_search") {
       repositoryCount
       edges {
+        cursor
         node {
           ... on Repository {
             id
@@ -22,21 +30,20 @@ const query = graphql`
   }
 `;
 
-/**
- * 레포지토리 검색 쿼리를 실행하고 응답 데이터를 매핑하여 반환
- * @param searchKeyword 검색어
- */
-export default function useRepositoryList(searchKeyword: string): Repository[] {
-  const data = useLazyLoadQuery<useRepositoryListQuery>(query, {
-    queryString: searchKeyword,
-  });
+export default function useRepositoryList(ref: useRepositoryListFragment$key) {
+  const { data, loadNext, hasNext } = usePaginationFragment(query2, ref);
 
-  return (
+  const items =
     data.search.edges
       ?.filter(isDefined)
       .map((edge) => edge.node)
-      .filter(isValidNode) || []
-  );
+      .filter(isValidNode) || [];
+
+  return {
+    items,
+    loadNext,
+    hasNext,
+  };
 }
 
 function isDefined<T>(argument: T | undefined | null): argument is T {

@@ -1,15 +1,25 @@
 import styled from '@emotion/styled';
 import RepositoryListItem from './RepositoryListItem';
 import useRepositoryList from './useRepositoryList';
+import { graphql, useLazyLoadQuery } from 'react-relay';
+import { RepositoryListQuery } from '../../../__generated__/RepositoryListQuery.graphql';
+
+const query = graphql`
+  query RepositoryListQuery($query: String!) {
+    ...useRepositoryListFragment @arguments(query: $query)
+  }
+`;
 
 interface Props {
   searchKeyword: string;
-
-  onClickShowMoreButton(): void;
 }
 
-export default function RepositoryList({ searchKeyword, onClickShowMoreButton }: Props) {
-  const items = useRepositoryList(searchKeyword);
+export default function RepositoryList({ searchKeyword }: Props) {
+  const data = useLazyLoadQuery<RepositoryListQuery>(query, {
+    query: searchKeyword,
+  });
+
+  const { items, loadNext, hasNext } = useRepositoryList(data);
 
   return (
     <>
@@ -23,7 +33,7 @@ export default function RepositoryList({ searchKeyword, onClickShowMoreButton }:
           />
         ))}
       </Container>
-      <ShowMoreButton type="submit" onClick={onClickShowMoreButton}>
+      <ShowMoreButton type="submit" disabled={!hasNext} onClick={() => loadNext(5)}>
         더 보기
       </ShowMoreButton>
     </>

@@ -11,17 +11,11 @@ export default function HomeContainer() {
     setSearchKeyword(keyword);
   };
 
-  const showMore = () => {
-    //TODO 더 보기 기능 구현
-  };
-
   return (
     <Container>
       <SearchForm onSubmit={submitSearchKeyword} />
       <Suspense fallback={<h2>loading repositories...</h2>}>
-        {searchKeyword && (
-          <RepositoryList searchKeyword={searchKeyword} onClickShowMoreButton={showMore} />
-        )}
+        {searchKeyword && <RepositoryList searchKeyword={searchKeyword} />}
       </Suspense>
     </Container>
   );
