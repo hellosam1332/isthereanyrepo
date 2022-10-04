@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8948e94297726e5da5a9f1190ec6e098>>
+ * @generated SignedSource<<3d98477e2db6dd7d1ac28401c54367f2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -63,7 +63,14 @@ v2 = [
     "name": "type",
     "value": "REPOSITORY"
   }
-];
+],
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -160,6 +167,7 @@ return {
                         "name": "description",
                         "storageKey": null
                       },
+                      (v3/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -192,13 +200,7 @@ return {
                   {
                     "kind": "InlineFragment",
                     "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "id",
-                        "storageKey": null
-                      }
+                      (v3/*: any*/)
                     ],
                     "type": "Node",
                     "abstractKey": "__isNode"
@@ -252,12 +254,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2178384df2afce4ec5110c3f0ed25f7c",
+    "cacheID": "10ced97bc160f259d9a67afbcc440618",
     "id": null,
     "metadata": {},
     "name": "RepositoryListPaginationQuery",
     "operationKind": "query",
-    "text": "query RepositoryListPaginationQuery(\n  $count: Int!\n  $cursor: String\n  $query: String!\n) {\n  ...useRepositoryListFragment_1jWD3d\n}\n\nfragment RepositoryListItem on Repository {\n  name\n  description\n  ...RepositoryStar\n}\n\nfragment RepositoryStar on Repository {\n  viewerHasStarred\n  stargazers {\n    totalCount\n  }\n}\n\nfragment useRepositoryListFragment_1jWD3d on Query {\n  search(query: $query, first: $count, after: $cursor, type: REPOSITORY) {\n    repositoryCount\n    edges {\n      cursor\n      node {\n        __typename\n        ...RepositoryListItem\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query RepositoryListPaginationQuery(\n  $count: Int!\n  $cursor: String\n  $query: String!\n) {\n  ...useRepositoryListFragment_1jWD3d\n}\n\nfragment RepositoryListItem on Repository {\n  name\n  description\n  ...RepositoryStar\n}\n\nfragment RepositoryStar on Repository {\n  id\n  viewerHasStarred\n  stargazers {\n    totalCount\n  }\n}\n\nfragment useRepositoryListFragment_1jWD3d on Query {\n  search(query: $query, first: $count, after: $cursor, type: REPOSITORY) {\n    repositoryCount\n    edges {\n      cursor\n      node {\n        __typename\n        ...RepositoryListItem\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

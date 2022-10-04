@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<641c1416419d5e27461b7eae5855164a>>
+ * @generated SignedSource<<f767fac3c4f542c97afc88c30fbd3303>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RepositoryStar$data = {
+  readonly id: string;
   readonly stargazers: {
     readonly totalCount: number;
   };
@@ -28,6 +29,13 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "RepositoryStar",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -58,6 +66,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "7184f9db581913d8e82e1f0c1b2e361e";
+(node as any).hash = "d192d2b1f3cce0e5c61b2f646c19c6a2";
 
 export default node;
